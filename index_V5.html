@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>聂瑞麟 Rico | Film & IP Works</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="聂瑞麟 Rico - 导演、编剧、内容创意总监。用故事讲述情感，让内容带动营销。代表作品包含罗技、强生安视优TVC以及原创IP《脸谱传说》。">
+  <style>
+    :root {
+      --bg: #05010a;
+      --bg-soft: #0b0b12;
+      --card: #111827;
+      --accent: #e50914;
+      --accent-soft: rgba(229, 9, 20, 0.16);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border: rgba(148, 163, 184, 0.4);
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 30px 80px rgba(0, 0, 0, 0.9);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "SF Pro Text", "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #020617 0, #02010a 45%, #000 100%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+
+    .app {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 16px 18px 40px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    /* 顶部导航 */
+
+    .top-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 10px;
+      z-index: 20;
+      max-width: 1180px;
+      width: calc(100% - 32px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at 30% 20%, #f97316 0, #e50914 40%, #7f1d1d 80%);
+      box-shadow:
+        0 0 0 1px #020617,
+        0 0 40px rgba(229, 9, 20, 0.7);
+    }
+
+    .brand-title {
+      font-size: 14px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 8px;
+      font-size: 13px;
+    }
+
+    .nav-link {
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      border: 2px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: 0.16s;
+    }
+
+    .nav-link:hover {
+      color: var(--text);
+      background: rgba(15, 23, 42, 0.96);
+      border-color: var(--border);
+    }
+
+    .nav-link.active {
+      color: #fefce8;
+      border-color: #f97316;
+      background: linear-gradient(135deg, #f97316, #e6550b);
+      box-shadow: 0 0 20px rgba(248, 171, 104, 0.8);
+    }
+
+    /* 多屏容器 */
+
+    .screens {
+      flex: 1;
+      margin-top: 70px; /* 给固定导航留空间 */
+      border-radius: 22px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: radial-gradient(circle at 0% 0%, rgba(229, 9, 20, 0.22), transparent 50%),
+                  radial-gradient(circle at 100% 0%, rgba(248, 250, 252, 0.05), transparent 60%),
+                  linear-gradient(to bottom, #020617, #02010a);
+      box-shadow: var(--shadow-soft);
+      padding: 0; /* 首页希望是全宽全高，这里不加内边距 */
+      overflow: hidden;
+    }
+
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    /* ========= Home 屏：你截图那种效果 ========= */
+
+    .home-hero {
+      position: relative;
+      min-height: calc(100vh - 90px); /* 看起来更像全屏 */
+      background:
+        #000 url("home-hero.jpg") center/cover no-repeat;
+      /* 如果图片名不是 home-hero.jpg，可以改这里 */
+    }
+
+    .home-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right,
+                  rgba(0,0,0,0.92) 0%,
+                  rgba(0,0,0,0.9) 35%,
+                  rgba(0,0,0,0.5) 60%,
+                  rgba(0,0,0,0.1) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .home-hero-content {
+      padding: 0 8vw;
+      max-width: 640px;
+    }
+
+    .home-hero-title {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      color: #f9fafb;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+
+    .home-hero-subtitle {
+      font-size: clamp(24px, 3.5vw, 32px);
+      font-weight: 700;
+      color: #f9fafb;
+    }
+
+    .home-hero-tagline-en {
+      margin-top: 14px;
+      font-size: 13px;
+      color: #e5e7eb;
+      opacity: 0.85;
+    }
+
+    .home-hero-meta {
+      margin-top: 16px;
+      font-size: 12px;
+      color: #e5e7eb;
+      opacity: 0.85;
+    }
+
+    .home-hero-actions {
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn-primary,
+    .btn-ghost {
+      padding: 9px 16px;
+      border-radius: var(--radius-pill);
+      border: 1px solid transparent;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: 0.16s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #e50914, #f97316);
+      border-color: rgba(229, 9, 20, 0.9);
+      color: #fef2f2;
+      box-shadow: 0 14px 36px rgba(229, 9, 20, 0.9);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 44px rgba(229, 9, 20, 1);
+    }
+
+    .btn-ghost {
+      background: rgba(15, 23, 42, 0.9);
+      border-color: rgba(148, 163, 184, 0.7);
+      color: var(--text);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(15, 23, 42, 0.98);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary span,
+    .btn-ghost span { font-size: 16px; }
+
+    /* ========= 其他页面通用样式 ========= */
+
+    .inner-wrap {
+      padding: 18px 18px 20px;
+    }
+
+    .section-block {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .section-sub {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .pill-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 11px;
+    }
+
+    .pill-tab {
+      padding: 4px 9px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148,163,184,0.7);
+      background: rgba(15,23,42,0.95);
+      color: var(--muted);
+    }
+
+    .rows {
+      display: grid;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .row-title {
+      font-size: 13px;
+      color: #e5e7eb;
+      margin-bottom: 4px;
+    }
+
+    .card-row {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(140px, 1fr);
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+    }
+
+    .film-card {
+      background: radial-gradient(circle at 0% 0%, rgba(255,255,255,0.08), transparent 40%),
+                  #020617;
+      border-radius: 14px;
+      border: 1px solid rgba(31,41,55,0.9);
+      overflow: hidden;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 14px 36px rgba(0,0,0,0.9);
+      transition: 0.18s;
+    }
+
+    .film-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.95);
+      border-color: rgba(229,9,20,0.9);
+    }
+
+        /* 影片海报：统一 16:9，比原来更简单 */
+
+    .film-poster {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;          /* 关键：固定为 16:9 */
+      border-bottom: 1px solid rgba(15, 23, 42, 0.9);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(229, 9, 20, 0.35), transparent 55%),
+        linear-gradient(135deg, #020617, #020617);  /* 没放图时的渐变底 */
+      overflow: hidden;
+    }
+
+    .film-poster img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;             /* 保持画面铺满，会适当裁切 */
+      display: block;
+    }
+
+    /* 如果你更想“完整显示不裁切”，可以把上面这一行
+       object-fit: cover; 改成 object-fit: contain;
+       不过这样两侧会有黑边 */
+
+    .poster-acuvue {
+      background:
+        linear-gradient(135deg, rgba(229,9,20,0.25), transparent 55%),
+        url("poster-acuvue.jpg") center/cover no-repeat,
+        linear-gradient(135deg, #020617, #020617);
+    }
+
+    .poster-lianpu {
+      background:
+        linear-gradient(135deg, rgba(229,9,20,0.3), transparent 55%),
+        url("poster-lianpu.jpg") center/cover no-repeat,
+        linear-gradient(135deg, #020617, #020617);
+    }
+
+    .film-body {
+      padding: 8px 9px 9px;
+      font-size: 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .film-title {
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .film-meta { color: var(--muted); }
+    .film-role { color: #fca5a5; }
+
+    .film-footer {
+      margin-top: 4px;
+      display: flex;
+      justify-content: space-between;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .pill {
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(229,9,20,0.8);
+      background: rgba(24,24,27,0.98);
+      color: #fecaca;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    .pill span { font-size: 13px; }
+
+    .pill.muted {
+      border-color: rgba(148,163,184,0.8);
+      color: var(--muted);
+    }
+
+    /* IP 页面 */
+
+    .ip-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.3fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 880px) {
+      .ip-layout { grid-template-columns: minmax(0, 1fr); }
+    }
+
+    .ip-highlight {
+      border-radius: 18px;
+      border: 1px solid rgba(229,9,20,0.9);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(229,9,20,0.4), transparent 60%),
+        linear-gradient(135deg, #020617, #020617);
+      padding: 14px 14px 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.95);
+      font-size: 12px;
+    }
+
+    .ip-title-cn { font-size: 18px; font-weight: 600; }
+    .ip-title-en { font-size: 12px; color: #fecaca; margin-top: 2px; }
+    .ip-meta { font-size: 11px; color: #fee2e2; margin-top: 6px; }
+    .ip-desc { margin-top: 10px; color: #fee2e2; }
+    .ip-note { margin-top: 10px; font-size: 11px; color: #fee2e2; opacity: 0.9; }
+
+    .ip-side {
+      border-radius: 18px;
+      border: 1px solid rgba(148,163,184,0.7);
+      background: rgba(15,23,42,0.96);
+      padding: 12px 13px 11px;
+      font-size: 12px;
+      color: var(--muted);
+      display: grid;
+      gap: 6px;
+    }
+
+    /* About 页面 */
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.3fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 880px) {
+      .about-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+
+    .about-text {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .about-list {
+      margin-top: 8px;
+      list-style: none;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .about-list li::before {
+      content: "•";
+      color: var(--accent);
+      margin-right: 6px;
+    }
+
+    .contact-list {
+      list-style: none;
+      font-size: 12px;
+      color: var(--muted);
+      display: grid;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .contact-label {
+      font-size: 11px;
+      color: #fca5a5;
+    }
+
+    .contact-list a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 7px;
+      border-radius: var(--radius-pill);
+      transition: 0.16s;
+    }
+
+    .contact-list a:hover {
+      background: rgba(24,24,27,0.98);
+      transform: translateY(-1px);
+    }
+
+    footer {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 11px;
+      color: #4b5563;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- 顶部导航 -->
+    <header class="top-nav">
+      <div class="brand">
+        <div class="brand-logo"></div>
+        <div>
+          <div class="brand-title">RICO NIE's STUDIO</div>
+          <div class="brand-sub">Film · IP · Storytelling</div>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <button class="nav-link active" data-target="home" onclick="showScreen('home')">首页</button>
+        <button class="nav-link" data-target="video" onclick="showScreen('video')">作品</button>
+        <button class="nav-link" data-target="ip" onclick="showScreen('ip')">方案展示</button>
+        <button class="nav-link" data-target="about" onclick="showScreen('about')">关于我</button>
+      </nav>
+    </header>
+
+    <main class="screens">
+      <!-- ========= HOME 屏：你希望的首屏 ========= -->
+      <section id="screen-home" class="screen active">
+        <div class="home-hero">
+          <div class="home-hero-overlay">
+            <div class="home-hero-content">
+              <h1 class="home-hero-title">用故事讲述情感</h1>
+              <h2 class="home-hero-title">让内容带动营销</h2>
+              <p class="home-hero-tagline-en">
+                Telling emotions through stories, letting content drive real-world marketing.
+              </p>
+              <p class="home-hero-meta">
+                聂瑞麟 Rico · 导演 / 编剧 / 内容创意总监
+              </p>
+              <div class="home-hero-actions">
+                <button class="btn-primary" onclick="showScreen('video')">
+                  <span>▶</span> 查看作品 View Works
+                </button>
+                <button class="btn-ghost" onclick="showScreen('about')">
+                  了解我 About Rico
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========= VIDEO 屏 ========= -->
+      <section id="screen-video" class="screen">
+        <div class="inner-wrap">
+          <div class="section-block">
+            <div class="section-header">
+              <div>
+                <h2 class="section-title">视频作品 <span style="font-size:12px;color:var(--muted);">Video Works</span></h2>
+                <p class="section-sub">品牌 TVC 与原创短片 · Brand Films & Original Shorts</p>
+              </div>
+              <div class="pill-tabs">
+                <span class="pill-tab">All</span>
+                <span class="pill-tab">Brand</span>
+                <span class="pill-tab">Short Film</span>
+                <span class="pill-tab">IP Concept</span>
+              </div>
+            </div>
+
+            <div class="rows">
+              <div>
+                <div class="row-title">Brand TVC · 品牌广告</div>
+                <div class="card-row">
+                  <!-- 罗技 -->
+                  <article class="film-card">
+                   <div class="film-poster">
+  <img src="poster-logitech.jpg" alt="罗技 X 铁豆｜罗技灵砚系列键盘 K868 TVC">
+</div>
+                    <div class="film-body">
+                      <div class="film-title">罗技 X 铁豆｜罗技灵砚系列键盘 K868 TVC</div>
+                      <div class="film-meta">2025 · 品牌 TVC · Logitech</div>
+                      <div class="film-role">角色 Role：监制 Producer</div>
+                      <p>
+                        围绕罗技新品 K868 客制化机械键盘，以赛车元素及中国首位 F4 女赛车手铁豆为线索，
+                        将“1000Hz 极速响应、Gasket 缓震结构、AI Portal”等卖点视觉化呈现。
+                      </p>
+                      <div class="film-footer">
+                        <a class="pill" href="https://www.xinpianchang.com/a13539776" target="_blank" rel="noreferrer">
+                          <span>▶</span> Watch
+                        </a>
+                      
+                      </div>
+                    </div>
+                  </article>
+
+                  <!-- 安视优 -->
+                  <article class="film-card">
+                    <div class="film-poster">
+  <img src="poster-acuvue.jpg" alt="安视优 X 周芯竹｜原生由我 细看更美">
+</div>
+                    <div class="film-body">
+                      <div class="film-title">安视优 X 周芯竹｜原生由我 细看更美</div>
+                      <div class="film-meta">2025 · 品牌 TVC · Johnson &amp; Johnson ACUVUE</div>
+                      <div class="film-role">角色 Role：监制 Producer</div>
+                      <p>
+                        从男友与闺蜜双重视角出发，对比不同花色美瞳在日常场景中的呈现，
+                        借由美妆 KOL 周芯竹的身份标签与表演，诠释「原生由我」的核心理念与产品特性。
+                      </p>
+                      <div class="film-footer">
+                        <a class="pill" href="https://www.xinpianchang.com/a13527157?from=webShare&channel=copyLink" target="_blank" rel="noreferrer">
+                          <span>▶</span> Watch
+                        </a>
+                        
+                      </div>
+                    </div>
+                  </article>
+        <!-- 雅姿系列TVC -->
+        <article class="film-card">
+          <!-- 先用纯色封面，占位用；之后有海报再换成 poster-artistry 之类的 -->
+         <div class="film-poster">
+  <img src="poster-yazi.jpg" alt="雅姿系列TVC">
+</div>
+          <div class="film-body">
+            <div class="film-title">雅姿系列TVC</div>
+            <div class="film-meta">2023 · 品牌 TVC · 安利雅姿</div>
+            <div class="film-role">角色 Role：监制 Producer</div>
+            <p>
+              本系列共四条 TVC，通过原料及概念实拍，展示产品核心有效成分，
+              并结合 B&amp;A 前后对比画面，直观呈现护肤效果。
+            </p>
+            <div class="film-footer">
+              <a class="pill"
+                 href="https://www.xinpianchang.com/a12688680?from=UserProfile"
+                 target="_blank" rel="noreferrer">
+                <span>▶</span> Watch
+              </a>
+              <span class="pill muted">新片场链接</span>
+            </div>
+          </div>
+        </article>
+                </div>
+              </div>
+
+              <div>
+                <div class="row-title">Original · 原创项目</div>
+                <div class="card-row">
+                 <!-- 脸谱传说短片 -->
+<article class="film-card">
+  <div class="film-poster">
+    <img src="poster-lianpu.jpg" alt="《脸谱传说》剧情短片">
+  </div>
+  <div class="film-body">
+    <div class="film-title">《脸谱传说》剧情短片</div>
+    <div class="film-meta">2025 · 剧情短片 Short Film</div>
+    <div class="film-role">角色 Role：总导演 Director</div>
+    <p>
+      将中华戏曲脸谱文化与东方特摄表达结合的原创项目，
+      在视觉奇观与文化内核之间寻找平衡，承载少年热血与英雄成长的故事线，
+      为中国式特摄英雄宇宙打下雏形。
+    </p>
+    <div class="film-footer">
+      <a class="pill"
+         href="https://www.xinpianchang.com/a13539776"
+         target="_blank" rel="noreferrer">
+        <span>▶</span> Watch
+      </a>
+      <span class="pill muted">新片场链接</span>
+    </div>
+  </div>
+</article>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========= IP 屏 ========= -->
+      <section id="screen-ip" class="screen">
+        <div class="inner-wrap">
+          <div class="section-block">
+            <div class="section-header">
+              <div>
+                <h2 class="section-title">IP 项目 & 企划方案 <span style="font-size:12px;color:var(--muted);">IP & Planning</span></h2>
+                <p class="section-sub">从世界观到商业企划的整体思路展示。</p>
+              </div>
+            </div>
+
+            <div class="ip-layout">
+              <div class="ip-highlight">
+                <div class="ip-title-cn">《脸谱传说》</div>
+                <div class="ip-title-en">LEGEND OF THE OPERA MASK</div>
+                <div class="ip-meta">
+                  Original Tokusatsu IP · Short Film / Concept · 2025
+                </div>
+                <p class="ip-desc">
+                  《脸谱传说》将中华戏曲脸谱文化与东方特摄相融合，构建具有中国特色的英雄叙事与视觉体系。  
+                  项目以少年热血故事为主线，结合传统脸谱中的“忠、义、勇、智”等精神意象，
+                  具备向多平台内容、文化旅游体验及衍生品等方向拓展的空间。
+                </p>
+                <p class="ip-note">
+                  · 现阶段已完成：世界观基础设定、人物小队核心关系、第一阶段剧情主线与视觉方向。<br />
+                  · 后续规划：连续剧及长片开发、舞台/沉浸式体验、线下展陈及周边衍生品矩阵。
+                </p>
+              </div>
+
+              <div class="ip-side">
+                <strong>《脸谱传说》商业企划书 · Investment Deck</strong>
+                <p>
+                  面向 IP 版权方及潜在投资方的系统企划文件，为项目融投资与长期运营提供资料背书。内容包括：
+                </p>
+                <ul style="margin-left:14px;list-style:disc;">
+                  <li>世界观与故事架构梳理</li>
+                  <li>角色设定与脸谱视觉系统</li>
+                  <li>目标人群与市场分析</li>
+                  <li>内容矩阵规划（短片 / 剧集 / 长片 / 动画等）</li>
+                  <li>文旅合作与场景化落地构想</li>
+                  <li>衍生品与授权模式设想</li>
+                </ul>
+                <p style="font-size:11px;margin-top:4px;">
+                  完整企划书暂不公开展示，如有兴趣了解，可通过 About 页面中的联系方式单独索取。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========= ABOUT 屏 ========= -->
+      <section id="screen-about" class="screen">
+        <div class="inner-wrap">
+          <div class="section-block">
+            <div class="section-header">
+              <div>
+                <h2 class="section-title">关于 &amp; 联系 <span style="font-size:12px;color:var(--muted);">About &amp; Contact</span></h2>
+                <p class="section-sub">如果你希望合作、深度了解项目或需要完整资料，可以通过以下方式联系我。</p>
+              </div>
+            </div>
+
+            <div class="about-grid">
+              <div>
+                <p class="about-text">
+                  更专注内容本身的导演 / 创意人，希望通过有温度的叙事与鲜明的视听语言，
+                  让作品同时服务情感与商业目标。从品牌传播到原创 IP，始终以“故事结构 + 画面气质”
+                  作为方法论核心。
+                </p>
+                <ul class="about-list">
+                  <li>十年影视内容创作与内容运营经验。</li>
+                  <li>类型涵盖电影、电视剧、TVC、电影短片等。</li>
+                  <li>累计参与约 500 部影视作品。</li>
+                  <li>合作品牌包括国家电网、上港集团、中船集团、罗技、强生、安利、美素佳儿等。</li>
+                </ul>
+              </div>
+
+              <div>
+                <ul class="contact-list">
+                  <li>
+                    <div class="contact-label">Email</div>
+                    <a href="mailto:869313542@qq.com">
+                      📧 869313542@qq.com
+                    </a>
+                  </li>
+                  <li>
+                    <div class="contact-label">WeChat</div>
+                    <a href="javascript:void(0);">
+                      💬 微信号：nrl2412（加微信请备注来意）
+                    </a>
+                  </li>
+                </ul>
+                <p class="about-text" style="margin-top:8px;">
+                  For English inquiries, feel free to reach out via email. I will respond as soon as possible.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      © <span id="year"></span> 聂瑞麟 Rico. All rights reserved.
+    </footer>
+  </div>
+
+  <script>
+    function showScreen(id) {
+      document.querySelectorAll('.screen').forEach(function (el) {
+        el.classList.remove('active');
+      });
+      document.getElementById('screen-' + id).classList.add('active');
+
+      document.querySelectorAll('.nav-link').forEach(function (el) {
+        el.classList.remove('active');
+      });
+      var current = document.querySelector('.nav-link[data-target="' + id + '"]');
+      if (current) current.classList.add('active');
+    }
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
