@@ -5,6 +5,7 @@
   <title>聂瑞麟 Rico | Film & IP Works</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="聂瑞麟 Rico - 导演、编剧、内容创意总监。用故事讲述情感，让内容带动营销。代表作品包含罗技、强生安视优TVC以及原创IP《脸谱传说》。">
+
   <style>
     :root {
       --bg: #05010a;
@@ -130,17 +131,11 @@
 
     /* 多屏容器 */
 
+        /* 多屏容器：只负责“占位”和给导航留空间，不再画一个大方块 */
     .screens {
       flex: 1;
       margin-top: 70px; /* 给固定导航留空间 */
-      border-radius: 22px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: radial-gradient(circle at 0% 0%, rgba(229, 9, 20, 0.22), transparent 50%),
-                  radial-gradient(circle at 100% 0%, rgba(248, 250, 252, 0.05), transparent 60%),
-                  linear-gradient(to bottom, #020617, #02010a);
-      box-shadow: var(--shadow-soft);
-      padding: 0; /* 首页希望是全宽全高，这里不加内边距 */
-      overflow: hidden;
+      padding: 0;
     }
 
     .screen { display: none; }
@@ -285,13 +280,25 @@
       font-size: 11px;
     }
 
-    .pill-tab {
-      padding: 4px 9px;
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(148,163,184,0.7);
-      background: rgba(15,23,42,0.95);
-      color: var(--muted);
-    }
+   .pill-tab {
+  padding: 4px 9px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(148,163,184,0.7);
+  background: rgba(15,23,42,0.95);
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.pill-tab:hover {
+  background: rgba(15,23,42,1);
+  color: var(--text);
+}
+
+.pill-tab-active {
+  border-color: var(--accent);
+  background: rgba(229,9,20,0.16);
+  color: var(--text);
+}
 
     .rows {
       display: grid;
@@ -306,13 +313,12 @@
     }
 
     .card-row {
-      display: grid;
-      grid-auto-flow: column;
-      grid-auto-columns: minmax(140px, 1fr);
-      gap: 10px;
-      overflow-x: auto;
-      padding-bottom: 6px;
-    }
+  display: grid;
+  /* 自动多列布局，能换行，不用横向滑动 */
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 14px;
+  padding-bottom: 8px;
+}
 
     .film-card {
       background: radial-gradient(circle at 0% 0%, rgba(255,255,255,0.08), transparent 40%),
@@ -333,7 +339,7 @@
       border-color: rgba(229,9,20,0.9);
     }
 
-        /* 影片海报：统一 16:9，比原来更简单 */
+       /* 影片海报：统一 16:9，比原来更简单 */
 
     .film-poster {
       position: relative;
@@ -357,13 +363,6 @@
        object-fit: cover; 改成 object-fit: contain;
        不过这样两侧会有黑边 */
 
-    .poster-acuvue {
-      background:
-        linear-gradient(135deg, rgba(229,9,20,0.25), transparent 55%),
-        url("poster-acuvue.jpg") center/cover no-repeat,
-        linear-gradient(135deg, #020617, #020617);
-    }
-
     .poster-lianpu {
       background:
         linear-gradient(135deg, rgba(229,9,20,0.3), transparent 55%),
@@ -372,12 +371,13 @@
     }
 
     .film-body {
-      padding: 8px 9px 9px;
-      font-size: 11px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
+  padding: 8px 9px 9px;
+  font-size: 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;              /* 让 body 占满卡片高度 */
+}
 
     .film-title {
       font-size: 12px;
@@ -388,12 +388,12 @@
     .film-role { color: #fca5a5; }
 
     .film-footer {
-      margin-top: 4px;
-      display: flex;
-      justify-content: space-between;
-      gap: 4px;
-      align-items: center;
-    }
+  margin-top: auto;     /* 把 footer 顶到最底部 */
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  align-items: center;
+}
 
     .pill {
       padding: 3px 7px;
@@ -415,7 +415,190 @@
     }
 
     /* IP 页面 */
+/* ===== IP 列表视图 / 详情视图切换 ===== */
+/* 先不在这里隐藏，交给 JS 控制 */
+.ip-view {
+  /* 可以留空，或者写一些通用间距 */
+}
 
+.ip-view-active {
+  /* 这个 class 不再负责显示/隐藏，仅作为标记使用 */
+}
+
+    /* IP 列表卡片布局 */
+    .ip-card-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    .ip-card {
+      background:
+        radial-gradient(circle at 0% 0%, rgba(248,250,252,0.06), transparent 55%),
+        linear-gradient(145deg, rgba(15,23,42,0.96), rgba(15,23,42,0.98));
+      border-radius: 16px;
+      border: 1px solid rgba(148,163,184,0.25);
+      box-shadow:
+        0 20px 50px rgba(15,23,42,0.9),
+        0 0 0 1px rgba(15,23,42,1);
+      padding: 14px 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: relative;
+    }
+
+    .ip-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(circle at 0% 0%, rgba(248,250,252,0.18), transparent 50%);
+      opacity: 0.8;
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    .ip-card-tag {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .ip-card-title {
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    .ip-card-meta {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .ip-card-text {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .ip-card-footer {
+      margin-top: auto;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    /* IP 详情页布局 */
+    .ip-detail-header {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 10px;
+    }
+
+    .ip-detail-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: 18px;
+      align-items: center;
+    }
+
+    /* 大图轮播区域 */
+    .ip-detail-hero {
+      position: relative;
+      border-radius: 18px;
+      background: radial-gradient(circle at 0% 0%, rgba(229,9,20,0.18), transparent 55%),
+                  radial-gradient(circle at 100% 100%, rgba(59,130,246,0.14), transparent 55%),
+                  #020617;
+      padding: 10px 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ip-gallery-frame {
+      width: 100%;
+      max-width: 640px;
+      aspect-ratio: 16 / 9;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(148,163,184,0.32);
+      box-shadow: 0 20px 45px rgba(15,23,42,0.95);
+      background: radial-gradient(circle at 50% 0%, rgba(248,250,252,0.16), transparent 60%);
+    }
+
+    .ip-gallery-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .ip-gallery-nav {
+      border: 1px solid rgba(148,163,184,0.55);
+      border-radius: 999px;
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(15,23,42,0.9);
+      color: var(--muted);
+      font-size: 18px;
+      cursor: pointer;
+      transition: all .18s ease-out;
+    }
+
+    .ip-gallery-nav:hover {
+      border-color: var(--accent);
+      color: var(--text);
+      box-shadow: 0 0 0 1px rgba(15,23,42,1), 0 0 30px rgba(248,250,252,0.25);
+    }
+
+    /* 文案区域 */
+    .ip-detail-text h3 {
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+
+    .ip-detail-sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .ip-detail-text p {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .ip-detail-subtitle {
+      font-size: 13px;
+      font-weight: 600;
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+
+    .ip-detail-actions {
+      margin-top: 10px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* 手机端下 IP 详情改为上下布局 */
+    @media (max-width: 768px) {
+      .ip-detail-body {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .ip-detail-header {
+        justify-content: flex-start;
+      }
+      .ip-detail-hero {
+        padding-inline: 18px;
+      }
+    }
     .ip-layout {
       display: grid;
       grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.3fr);
@@ -518,6 +701,157 @@
       font-size: 11px;
       color: #4b5563;
     }
+/* ========== 手机端适配：宽度小于 768px ========== */
+@media (max-width: 768px) {
+
+  /* 整体内边距稍微收紧 */
+  .app {
+    padding: 12px 10px 28px;
+  }
+
+  /* 顶部导航更紧凑一点 */
+  .top-nav {
+    padding: 6px 10px;
+    width: calc(100% - 20px);
+  }
+
+  .brand-title {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+  }
+
+  .brand-sub {
+    font-size: 10px;
+    display: none; /* 手机上可以隐藏副标题，节省空间 */
+  }
+
+  .nav-links {
+    gap: 4px;
+    font-size: 12px;
+  }
+
+  .nav-link {
+    padding: 4px 10px;
+  }
+
+  /* 给内容区域留一点空间，避免被导航挡住太多 */
+  .screens {
+    margin-top: 64px;
+    border-radius: 16px;
+  }
+
+  /* Home 首屏：文字居中、更靠下 */
+  .home-hero-overlay {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .home-hero-content {
+    padding: 0 6vw;
+    max-width: 100%;
+  }
+
+  .home-hero-title {
+    font-size: 24px;
+  }
+
+  .home-hero-subtitle {
+    font-size: 20px;
+  }
+
+  .home-hero-actions {
+    justify-content: center;
+  }
+
+  /* Video 页面标题等整体缩一号 */
+  .section-title {
+    font-size: 16px;
+  }
+
+  .section-sub {
+    font-size: 11px;
+  }
+
+  .row-title {
+    font-size: 12px;
+    margin-top: 6px;
+  }
+
+  /* 分类按钮在手机上可以换行 */
+  .pill-tabs {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  /* 卡片网格：每行 1～2 张，自适应 */
+  .card-row {
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 12px;
+  }
+
+  .film-card {
+    min-height: 0;         /* 防止卡片过高 */
+  }
+
+  .film-body {
+    font-size: 10px;
+  }
+
+  .film-title {
+    font-size: 11px;
+  }
+
+  .film-meta,
+  .film-role {
+    font-size: 10px;
+  }
+
+  .pill {
+    font-size: 10px;
+  }
+
+  /* IP / About 两列布局在手机上改成一列（如果你之前已有类似规则，可以保持） */
+  .ip-layout,
+  .about-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ========== 特别窄的屏幕：宽度小于 480px 时进一步简化 ========== */
+@media (max-width: 480px) {
+
+  .home-hero-title {
+    font-size: 22px;
+  }
+
+  .home-hero-subtitle {
+    font-size: 18px;
+  }
+
+  .home-hero-tagline-en,
+  .home-hero-meta {
+    font-size: 11px;
+  }
+
+  .btn-primary,
+  .btn-ghost {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .pill-tabs {
+    justify-content: flex-start;
+  }
+
+  /* 一行只放一张卡片，阅读体验更好 */
+  .card-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .film-body {
+    padding: 8px 10px 10px;
+  }
+}
   </style>
 </head>
 <body>
@@ -527,15 +861,15 @@
       <div class="brand">
         <div class="brand-logo"></div>
         <div>
-          <div class="brand-title">RICO NIE's STUDIO</div>
+          <div class="brand-title">RICO NIE‘s STUDIO</div>
           <div class="brand-sub">Film · IP · Storytelling</div>
         </div>
       </div>
       <nav class="nav-links">
-        <button class="nav-link active" data-target="home" onclick="showScreen('home')">首页</button>
-        <button class="nav-link" data-target="video" onclick="showScreen('video')">作品</button>
-        <button class="nav-link" data-target="ip" onclick="showScreen('ip')">方案展示</button>
-        <button class="nav-link" data-target="about" onclick="showScreen('about')">关于我</button>
+        <button class="nav-link active" data-target="home" onclick="showScreen('home')">Home</button>
+        <button class="nav-link" data-target="video" onclick="showScreen('video')">Video</button>
+        <button class="nav-link" data-target="ip" onclick="showScreen('ip')">IP / Planning</button>
+        <button class="nav-link" data-target="about" onclick="showScreen('about')">About</button>
       </nav>
     </header>
 
@@ -567,33 +901,49 @@
       </section>
 
       <!-- ========= VIDEO 屏 ========= -->
+            <!-- ========= VIDEO 屏：TVC / 宣传片 / 电影短片 ========= -->
       <section id="screen-video" class="screen">
         <div class="inner-wrap">
           <div class="section-block">
             <div class="section-header">
               <div>
-                <h2 class="section-title">视频作品 <span style="font-size:12px;color:var(--muted);">Video Works</span></h2>
-                <p class="section-sub">品牌 TVC 与原创短片 · Brand Films & Original Shorts</p>
+                <h2 class="section-title">
+                  视频作品 <span style="font-size:12px;color:var(--muted);">Video Works</span>
+                </h2>
+                <p class="section-sub">按类型整理：TVC、宣传片、电影短片。</p>
               </div>
-              <div class="pill-tabs">
-                <span class="pill-tab">All</span>
-                <span class="pill-tab">Brand</span>
-                <span class="pill-tab">Short Film</span>
-                <span class="pill-tab">IP Concept</span>
-              </div>
+             <div class="pill-tabs">
+  <button class="pill-tab pill-tab-active"
+          data-filter="tvc"
+          onclick="filterVideo('tvc')">
+    TVC
+  </button>
+  <button class="pill-tab"
+          data-filter="promo"
+          onclick="filterVideo('promo')">
+    宣传片
+  </button>
+  <button class="pill-tab"
+          data-filter="short"
+          onclick="filterVideo('short')">
+    电影短片
+  </button>
+</div>
             </div>
 
             <div class="rows">
-              <div>
-                <div class="row-title">Brand TVC · 品牌广告</div>
+
+              <!-- ================= TVC · 品牌广告 ================= -->
+              <div class="video-cat" data-type="tvc">
+                <div class="row-title">TVC · 品牌广告</div>
                 <div class="card-row">
                   <!-- 罗技 -->
                   <article class="film-card">
-                   <div class="film-poster">
-  <img src="poster-logitech.jpg" alt="罗技 X 铁豆｜罗技灵砚系列键盘 K868 TVC">
-</div>
+                    <div class="film-poster">
+                      <img src="poster-logitech.jpg" alt="罗技 X 铁豆｜罗技灵砚系列键盘 K868 TVC">
+                    </div>
                     <div class="film-body">
-                      <div class="film-title">罗技 X 铁豆｜罗技灵砚系列键盘 K868 TVC</div>
+                      <div class="film-title">罗技 X 铁豆｜罗技灵砚系列键盘TVC</div>
                       <div class="film-meta">2025 · 品牌 TVC · Logitech</div>
                       <div class="film-role">角色 Role：监制 Producer</div>
                       <p>
@@ -601,10 +951,11 @@
                         将“1000Hz 极速响应、Gasket 缓震结构、AI Portal”等卖点视觉化呈现。
                       </p>
                       <div class="film-footer">
-                        <a class="pill" href="https://www.xinpianchang.com/a13539776" target="_blank" rel="noreferrer">
+                        <a class="pill"
+                           href="https://www.xinpianchang.com/a13539776"
+                           target="_blank" rel="noreferrer">
                           <span>▶</span> Watch
                         </a>
-                      
                       </div>
                     </div>
                   </article>
@@ -612,132 +963,524 @@
                   <!-- 安视优 -->
                   <article class="film-card">
                     <div class="film-poster">
-  <img src="poster-acuvue.jpg" alt="安视优 X 周芯竹｜原生由我 细看更美">
-</div>
+                      <img src="poster-acuvue.jpg" alt="安视优 X 周芯竹｜原生由我 细看更美">
+                    </div>
                     <div class="film-body">
                       <div class="film-title">安视优 X 周芯竹｜原生由我 细看更美</div>
-                      <div class="film-meta">2025 · 品牌 TVC · Johnson &amp; Johnson ACUVUE</div>
+                      <div class="film-meta">2025 · 品牌 TVC ·  ACUVUE</div>
                       <div class="film-role">角色 Role：监制 Producer</div>
                       <p>
                         从男友与闺蜜双重视角出发，对比不同花色美瞳在日常场景中的呈现，
                         借由美妆 KOL 周芯竹的身份标签与表演，诠释「原生由我」的核心理念与产品特性。
                       </p>
                       <div class="film-footer">
-                        <a class="pill" href="https://www.xinpianchang.com/a13527157?from=webShare&channel=copyLink" target="_blank" rel="noreferrer">
+                        <a class="pill"
+                           href="https://www.xinpianchang.com/a13527157?from=webShare&channel=copyLink"
+                           target="_blank" rel="noreferrer">
                           <span>▶</span> Watch
                         </a>
-                        
                       </div>
                     </div>
                   </article>
-        <!-- 雅姿系列TVC -->
-        <article class="film-card">
-          <!-- 先用纯色封面，占位用；之后有海报再换成 poster-artistry 之类的 -->
-         <div class="film-poster">
-  <img src="poster-yazi.jpg" alt="雅姿系列TVC">
-</div>
-          <div class="film-body">
-            <div class="film-title">雅姿系列TVC</div>
-            <div class="film-meta">2023 · 品牌 TVC · 安利雅姿</div>
-            <div class="film-role">角色 Role：监制 Producer</div>
-            <p>
-              本系列共四条 TVC，通过原料及概念实拍，展示产品核心有效成分，
-              并结合 B&amp;A 前后对比画面，直观呈现护肤效果。
-            </p>
-            <div class="film-footer">
-              <a class="pill"
-                 href="https://www.xinpianchang.com/a12688680?from=UserProfile"
-                 target="_blank" rel="noreferrer">
-                <span>▶</span> Watch
-              </a>
-              <span class="pill muted">新片场链接</span>
-            </div>
-          </div>
-        </article>
+
+                  <!-- 雅姿系列TVC｜果酸活肤精华液 -->
+                  <article class="film-card">
+                    <div class="film-poster">
+                      <img src="poster-artistry-aha.jpg" alt="雅姿系列TVC｜果酸活肤精华液">
+                    </div>
+                    <div class="film-body">
+                      <div class="film-title">雅姿系列TVC｜果酸活肤精华液</div>
+                      <div class="film-meta">2023 · 品牌 TVC · 安利雅姿</div>
+                      <div class="film-role">角色 Role：监制 Producer</div>
+                      <p>
+                        雅姿果酸活肤精华液单品篇。本片通过原料质感与概念化实拍，
+                        聚焦果酸活肤成分的功效，并以 B&amp;A 前后对比画面直观呈现肌肤更新效果。
+                      </p>
+                      <div class="film-footer">
+                        <a class="pill"
+                           href="https://www.xinpianchang.com/a12688680?from=UserProfile"
+                           target="_blank" rel="noreferrer">
+                          <span>▶</span> Watch
+                        </a>
+                      </div>
+                    </div>
+                  </article>
+
+                  <!-- 雅姿系列TVC｜雅姿活颜精华液 -->
+                  <article class="film-card">
+                    <div class="film-poster">
+                      <img src="poster-artistry-renewal.jpg" alt="雅姿系列TVC｜雅姿活颜精华液">
+                    </div>
+                    <div class="film-body">
+                      <div class="film-title">雅姿系列TVC｜雅姿活颜精华液</div>
+                      <div class="film-meta">2023 · 品牌 TVC · 安利雅姿</div>
+                      <div class="film-role">角色 Role：监制 Producer</div>
+                      <p>
+                        通过原料细节与实验感画面，强调活颜精华液的核心成分与焕肤功效，
+                        辅以 B&amp;A 对比，突出肌肤由暗沉到透亮的变化。
+                      </p>
+                      <div class="film-footer">
+                        <a class="pill"
+                           href="https://www.xinpianchang.com/a12687759?from=UserProfile"
+                           target="_blank" rel="noreferrer">
+                          <span>▶</span> Watch
+                        </a>
+                      </div>
+                    </div>
+                  </article>
+
+                  <!-- 雅姿系列TVC｜雅姿精华面膜 -->
+                  <article class="film-card">
+                    <div class="film-poster">
+                      <img src="poster-artistry-mask.jpg" alt="雅姿系列TVC｜雅姿精华面膜">
+                    </div>
+                    <div class="film-body">
+                      <div class="film-title">雅姿系列TVC｜雅姿精华面膜</div>
+                      <div class="film-meta">2023 · 品牌 TVC · 安利雅姿</div>
+                      <div class="film-role">角色 Role：监制 Producer</div>
+                      <p>
+                        以原料肌理与膜布细节为视觉主线，呈现精华面膜在敷贴过程中的肌肤触感与含水量变化，
+                        结合 B&amp;A 对比强化「一片见效」的产品印象。
+                      </p>
+                      <div class="film-footer">
+                        <a class="pill"
+                           href="https://www.xinpianchang.com/a12687701?from=UserProfile"
+                           target="_blank" rel="noreferrer">
+                          <span>▶</span> Watch
+                        </a>
+                      </div>
+                    </div>
+                  </article>
+
+                  <!-- 雅姿系列TVC｜雅姿细致修护精华乳 -->
+                  <article class="film-card">
+                    <div class="film-poster">
+                      <img src="poster-artistry-refine.jpg" alt="雅姿系列TVC｜雅姿细致修护精华乳">
+                    </div>
+                    <div class="film-body">
+                      <div class="film-title">雅姿系列TVC｜雅姿细致修护精华乳</div>
+                      <div class="film-meta">2023 · 品牌 TVC · 安利雅姿</div>
+                      <div class="film-role">角色 Role：监制 Producer</div>
+                      <p>
+                        从原料、质地与肌肤纹理的近景出发，强调细致修护精华乳对毛孔与细纹的改善，
+                        通过 B&amp;A 前后画面对比，构建精细、专业的功效心智。
+                      </p>
+                      <div class="film-footer">
+                        <a class="pill"
+                           href="https://www.xinpianchang.com/a12687638?from=UserProfile"
+                           target="_blank" rel="noreferrer">
+                          <span>▶</span> Watch
+                        </a>
+                      </div>
+                    </div>
+                  </article>
+
+                  <!-- 安利｜丽龄抚纹路组合场景篇 -->
+                  <article class="film-card">
+                    <div class="film-poster">
+                      <img src="poster-amway-antiwrinkle.jpg" alt="安利｜丽龄抚纹路组合场景篇">
+                    </div>
+                    <div class="film-body">
+                      <div class="film-title">安利｜丽龄抚纹路组合场景篇</div>
+                      <div class="film-meta">2023 · 品牌 TVC · 安利</div>
+                      <div class="film-role">角色 Role：监制 Producer</div>
+                      <p>
+                        通过日常生活化场景与人物表演，将细纹困扰与使用组合产品的过程串联，
+                        在真实体验感中呈现「组合使用，抚平纹路」的功效路径。
+                      </p>
+                      <div class="film-footer">
+                        <a class="pill"
+                           href="https://www.xinpianchang.com/a12591420?from=UserProfile"
+                           target="_blank" rel="noreferrer">
+                          <span>▶</span> Watch
+                        </a>
+                      </div>
+                    </div>
+                  </article>
+
+                  <!-- 安利｜抗氧组合场景篇 -->
+                  <article class="film-card">
+                    <div class="film-poster">
+                      <img src="poster-amway-antioxidant.jpg" alt="安利｜抗氧组合场景篇">
+                    </div>
+                    <div class="film-body">
+                      <div class="film-title">安利｜抗氧组合场景篇</div>
+                      <div class="film-meta">2023 · 品牌 TVC · 安利</div>
+                      <div class="film-role">角色 Role：监制 Producer</div>
+                      <p>
+                        以多组生活场景中“氧化压力”的细节为切入点，
+                        通过组合产品的使用方式和人物状态变化，传达「抗氧组合」带来的整体焕新感。
+                      </p>
+                      <div class="film-footer">
+                        <a class="pill"
+                           href="https://www.xinpianchang.com/a12591380?from=UserProfile"
+                           target="_blank" rel="noreferrer">
+                          <span>▶</span> Watch
+                        </a>
+                      </div>
+                    </div>
+                  </article>
+
+                  <!-- 茉沏｜江南新式茶饮品牌 新品TVC -->
+                  <article class="film-card">
+                    <div class="film-poster">
+                      <img src="poster-moxi-newproduct.jpg" alt="茉沏｜江南新式茶饮品牌 新品TVC">
+                    </div>
+                    <div class="film-body">
+                      <div class="film-title">茉沏｜江南新式茶饮品牌 新品TVC</div>
+                      <div class="film-meta">2023 · 品牌 TVC · 茉沏</div>
+                      <div class="film-role">角色 Role：监制 Producer</div>
+                      <p>
+                        以“赏江南之雅，品茉沏之韵”为核心意象，
+                        把江南人文历史与新品茶饮体验结合，在场景与产品镜头之间建立品牌独特气质。
+                      </p>
+                      <div class="film-footer">
+                        <a class="pill"
+                           href="https://www.xinpianchang.com/a12587832?from=UserProfile"
+                           target="_blank" rel="noreferrer">
+                          <span>▶</span> Watch
+                        </a>
+                      </div>
+                    </div>
+                  </article>
+
+                  <!-- 茉沏｜江南新式茶饮品牌 CNY -->
+                  <article class="film-card">
+                    <div class="film-poster">
+                      <img src="poster-moxi-cny.jpg" alt="茉沏｜江南新式茶饮品牌 CNY">
+                    </div>
+                    <div class="film-body">
+                      <div class="film-title">茉沏｜江南新式茶饮品牌 CNY</div>
+                      <div class="film-meta">2023 · 品牌 TVC · 茉沏</div>
+                      <div class="film-role">角色 Role：监制 Producer</div>
+                      <p>
+                        以春节氛围与江南风物为背景，将团聚、送礼与茶饮体验串联，
+                        延续“江南新式茶饮品牌”定位，打造茉沏在 CNY 案例中的仪式感与记忆点。
+                      </p>
+                      <div class="film-footer">
+                        <a class="pill"
+                           href="https://www.xinpianchang.com/a12587816?from=UserProfile"
+                           target="_blank" rel="noreferrer">
+                          <span>▶</span> Watch
+                        </a>
+                      </div>
+                    </div>
+                  </article>
                 </div>
               </div>
 
-              <div>
-                <div class="row-title">Original · 原创项目</div>
-                <div class="card-row">
-                 <!-- 脸谱传说短片 -->
-<article class="film-card">
-  <div class="film-poster">
-    <img src="poster-lianpu.jpg" alt="《脸谱传说》剧情短片">
+              <!-- ================= 宣传片 · Promo / Corporate ================= -->
+              <div class="video-cat" data-type="promo">
+                <div class="row-title">宣传片 · Promo / Corporate</div>
+                 <div class="card-row">
+
+    <!-- 党政宣传片《有我青春正能量》 -->
+    <article class="film-card">
+      <div class="film-poster">
+        <img src="poster-ywqn.jpg" alt="党政宣传片《有我青春正能量》">
+      </div>
+      <div class="film-body">
+        <div class="film-title">党政宣传片《有我青春正能量》</div>
+        <div class="film-meta">2020 · 宣传片 · 东捷集团</div>
+        <div class="film-role">角色 Role：执行导演、编剧</div>
+        <p>
+          采用略带夸张的演绎方式，将东捷集团不同岗位的员工串联在一起，
+          呈现他们通过各自工作保障生产运行有序进行的故事。影片根据真人真事改编，
+          在轻喜感节奏中传递青春正能量。
+        </p>
+        <div class="film-footer">
+          <a class="pill"
+             href="https://www.xinpianchang.com/a11815055?from=UserProfile"
+             target="_blank" rel="noreferrer">
+            <span>▶</span> Watch
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 党政宣传片《复兴引擎》 -->
+    <article class="film-card">
+      <div class="film-poster">
+        <img src="poster-fuxing.jpg" alt="党政宣传片《复兴引擎》">
+      </div>
+      <div class="film-body">
+        <div class="film-title">党政宣传片《复兴引擎》</div>
+        <div class="film-meta">2020 · 宣传片 · 上港集团</div>
+        <div class="film-role">角色 Role：执行导演、编剧</div>
+        <p>
+          通过数个真实发生的事件，讲述上海港复兴船务有限公司在重大节点中
+          践行“服务强港、保障主业”的使命担当。以纪实叙事结合形象化表达，
+          强调国企在港口复兴中的“引擎”角色。
+        </p>
+        <div class="film-footer">
+          <a class="pill"
+             href="https://www.xinpianchang.com/a11826299?searchKw=%E5%A4%8D%E5%85%B4%E5%BC%95%E6%93%8E&from=search_post"
+             target="_blank" rel="noreferrer">
+            <span>▶</span> Watch
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 党政宣传片《七支队 我的家》 -->
+    <article class="film-card">
+      <div class="film-poster">
+        <img src="poster-qizhdui.jpg" alt="党政宣传片《七支队 我的家》">
+      </div>
+      <div class="film-body">
+        <div class="film-title">党政宣传片《七支队 我的家》</div>
+        <div class="film-meta">2019 · 宣传片 · 政府机关</div>
+        <div class="film-role">角色 Role：执行导演、编剧</div>
+        <p>
+          以形象片的叙事方式，展现上海市交通执法总队七支队的工作、学习与生活日常，
+          在执法场景与队伍内部氛围之间切换，塑造“七支队是家”的集体归属感和职业荣誉感。
+        </p>
+        <div class="film-footer">
+          <a class="pill"
+             href="https://www.xinpianchang.com/a11826263?from=UserProfile"
+             target="_blank" rel="noreferrer">
+            <span>▶</span> Watch
+          </a>
+        </div>
+      </div>
+    </article>
+
   </div>
-  <div class="film-body">
-    <div class="film-title">《脸谱传说》剧情短片</div>
-    <div class="film-meta">2025 · 剧情短片 Short Film</div>
-    <div class="film-role">角色 Role：总导演 Director</div>
-    <p>
-      将中华戏曲脸谱文化与东方特摄表达结合的原创项目，
-      在视觉奇观与文化内核之间寻找平衡，承载少年热血与英雄成长的故事线，
-      为中国式特摄英雄宇宙打下雏形。
-    </p>
-    <div class="film-footer">
-      <a class="pill"
-         href="https://www.xinpianchang.com/a13539776"
-         target="_blank" rel="noreferrer">
-        <span>▶</span> Watch
-      </a>
-      <span class="pill muted">新片场链接</span>
-    </div>
-  </div>
-</article>
                 </div>
               </div>
+
+              <!-- ================= 电影短片 · Short Films ================= -->
+              <div class="video-cat" data-type="short">
+                <div class="row-title">电影短片 · Short Films</div>
+                <div class="card-row">
+
+                  <!-- 《脸谱传说》剧情短片 -->
+                  <article class="film-card">
+                    <div class="film-poster">
+                      <img src="poster-lianpu.jpg" alt="《脸谱传说》剧情短片">
+                    </div>
+                    <div class="film-body">
+                      <div class="film-title">《脸谱传说》剧情短片</div>
+                      <div class="film-meta">2025 · 剧情短片 Short Film · Original IP</div>
+                      <div class="film-role">角色 Role：总导演 Director</div>
+                      <p>
+                        将中华戏曲脸谱文化与东方特摄表达结合的原创项目，
+                        在视觉奇观与文化内核之间寻找平衡，承载少年热血与英雄成长的故事线，
+                        为中国式特摄英雄宇宙打下雏形。
+                      </p>
+                      <div class="film-footer">
+                        <a class="pill"
+                           href="https://www.xinpianchang.com/a13539776"
+                           target="_blank" rel="noreferrer">
+                          <span>▶</span> Watch
+                        </a>
+                      </div>
+                    </div>
+                  </article>
+
+                  <!-- 电影短片《守护》 -->
+                  <article class="film-card">
+                    <div class="film-poster">
+                      <img src="poster-guardian.jpg" alt="电影短片《守护》">
+                    </div>
+                    <div class="film-body">
+                      <div class="film-title">电影短片《守护》</div>
+                      <div class="film-meta">2020 · 剧情短片 Short Film · 太仓海事局</div>
+                      <div class="film-role">角色 Role：执行导演、编剧</div>
+                      <p>
+                        为太仓海事局创作的参赛电影短片，以海事一线为背景，
+                        呈现平凡岗位背后的责任与担当。影片入围宁波国际微电影节优秀剧情单元，
+                        获全国交通运输部微电影大赛三等奖、苏州第四届法治微电影大赛一等奖。
+                      </p>
+                      <div class="film-footer">
+                        <a class="pill"
+                           href="https://www.xinpianchang.com/a10761111?from=UserProfile"
+                           target="_blank" rel="noreferrer">
+                          <span>▶</span> Watch
+                        </a>
+                      </div>
+                    </div>
+                  </article>
+
+                  <!-- 电影短片《画说》 -->
+                  <article class="film-card">
+                    <div class="film-poster">
+                      <img src="poster-huashuo.jpg" alt="电影短片《画说》">
+                    </div>
+                    <div class="film-body">
+                      <div class="film-title">电影短片《画说》</div>
+                      <div class="film-meta">2019 · 剧情短片 Short Film · 政府项目</div>
+                      <div class="film-role">角色 Role：执行导演、编剧</div>
+                      <p>
+                        根据真人真事改编，通过一段关于“画”与记忆的故事，
+                        折射普通人对城市与家庭的情感连接。影片获上海市市民微电影大赛三等奖。
+                      </p>
+                      <div class="film-footer">
+                        <a class="pill"
+                           href="https://www.xinpianchang.com/a10418496?from=UserProfile"
+                           target="_blank" rel="noreferrer">
+                          <span>▶</span> Watch
+                        </a>
+                      </div>
+                    </div>
+                  </article>
+
+                  <!-- 电影短片《光》 -->
+                  <article class="film-card">
+                    <div class="film-poster">
+                      <img src="poster-light.jpg" alt="电影短片《光》">
+                    </div>
+                    <div class="film-body">
+                      <div class="film-title">电影短片《光》</div>
+                      <div class="film-meta">2020 · 剧情短片 Short Film · 政府项目</div>
+                      <div class="film-role">角色 Role：执行导演、编剧</div>
+                      <p>
+                        同样根据真人真事改编，以“光”为核心意象，
+                        描绘在城市一隅中彼此照亮的普通人故事。影片获上海市市民微电影大赛二等奖。
+                      </p>
+                      <div class="film-footer">
+                        <a class="pill"
+                           href="https://www.xinpianchang.com/a10761167?from=UserProfile"
+                           target="_blank" rel="noreferrer">
+                          <span>▶</span> Watch
+                        </a>
+                      </div>
+                    </div>
+                  </article>
+
+                  <!-- 电影短片《阵地》 -->
+                  <article class="film-card">
+                    <div class="film-poster">
+                      <img src="poster-frontline.jpg" alt="电影短片《阵地》">
+                    </div>
+                    <div class="film-body">
+                      <div class="film-title">电影短片《阵地》</div>
+                      <div class="film-meta">2021 · 剧情短片 Short Film · 国家电网上海电力公司</div>
+                      <div class="film-role">角色 Role：执行导演、编剧</div>
+                      <p>
+                        为国家电网上海电力公司创作的参赛短片，根据真人真事改编，
+                        以电力一线“阵地”为舞台，呈现电力工作者在关键时刻的坚守与选择。
+                        影片入选「学习强国」APP 展演及「上海力道」展演。
+                      </p>
+                      <div class="film-footer">
+                        <a class="pill"
+                           href="https://www.xinpianchang.com/a11815021?from=UserProfile"
+                           target="_blank" rel="noreferrer">
+                          <span>▶</span> Watch
+                        </a>
+                      </div>
+                    </div>
+                  </article>
+
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
       </section>
-
       <!-- ========= IP 屏 ========= -->
+            <!-- ========= IP / Planning 屏 ========= -->
       <section id="screen-ip" class="screen">
         <div class="inner-wrap">
           <div class="section-block">
             <div class="section-header">
               <div>
-                <h2 class="section-title">IP 项目 & 企划方案 <span style="font-size:12px;color:var(--muted);">IP & Planning</span></h2>
+                <h2 class="section-title">
+                  IP 项目 &amp; 企划方案
+                  <span style="font-size:12px;color:var(--muted);">IP &amp; Planning</span>
+                </h2>
                 <p class="section-sub">从世界观到商业企划的整体思路展示。</p>
               </div>
             </div>
 
-            <div class="ip-layout">
-              <div class="ip-highlight">
-                <div class="ip-title-cn">《脸谱传说》</div>
-                <div class="ip-title-en">LEGEND OF THE OPERA MASK</div>
-                <div class="ip-meta">
-                  Original Tokusatsu IP · Short Film / Concept · 2025
-                </div>
-                <p class="ip-desc">
-                  《脸谱传说》将中华戏曲脸谱文化与东方特摄相融合，构建具有中国特色的英雄叙事与视觉体系。  
-                  项目以少年热血故事为主线，结合传统脸谱中的“忠、义、勇、智”等精神意象，
-                  具备向多平台内容、文化旅游体验及衍生品等方向拓展的空间。
-                </p>
-                <p class="ip-note">
-                  · 现阶段已完成：世界观基础设定、人物小队核心关系、第一阶段剧情主线与视觉方向。<br />
-                  · 后续规划：连续剧及长片开发、舞台/沉浸式体验、线下展陈及周边衍生品矩阵。
-                </p>
-              </div>
+            <!-- ========== 视图 1：IP 列表（卡片） ========== -->
+            <div class="ip-view ip-view-active" id="ip-view-list">
+              <div class="ip-card-row">
 
-              <div class="ip-side">
-                <strong>《脸谱传说》商业企划书 · Investment Deck</strong>
-                <p>
-                  面向 IP 版权方及潜在投资方的系统企划文件，为项目融投资与长期运营提供资料背书。内容包括：
-                </p>
-                <ul style="margin-left:14px;list-style:disc;">
-                  <li>世界观与故事架构梳理</li>
-                  <li>角色设定与脸谱视觉系统</li>
-                  <li>目标人群与市场分析</li>
-                  <li>内容矩阵规划（短片 / 剧集 / 长片 / 动画等）</li>
-                  <li>文旅合作与场景化落地构想</li>
-                  <li>衍生品与授权模式设想</li>
-                </ul>
-                <p style="font-size:11px;margin-top:4px;">
-                  完整企划书暂不公开展示，如有兴趣了解，可通过 About 页面中的联系方式单独索取。
-                </p>
+                <!-- 脸谱传说 IP 卡片 -->
+                <article class="ip-card">
+                  <div class="ip-card-tag">Original Tokusatsu IP</div>
+                  <h3 class="ip-card-title">《脸谱传说》 · Legacy Of Masks</h3>
+                  <div class="ip-card-meta">Short Film / IP Universe · 2025</div>
+                  <p class="ip-card-text">
+                    将中华戏曲脸谱文化与东方特摄表达结合的原创 IP 项目。
+                    以少年热血与英雄成长为叙事核心，构建拥有中国特色的英雄宇宙雏形，
+                    并具备向剧集、电影、文旅及衍生品延展的潜力。
+                  </p>
+                  <div class="ip-card-footer">
+                    <button class="btn-primary" onclick="openIpDetail('legacy')">
+                      查看方案 View Project
+                    </button>
+                  </div>
+                </article>
+
+                <!-- 以后如果有第二个 IP，就在这里再加一个 ip-card 卡片 -->
+
               </div>
             </div>
+
+            <!-- ========== 视图 2：脸谱传说 · 详情 + 大图轮播 ========== -->
+            <div class="ip-view" id="ip-view-legacy">
+              <div class="ip-detail-header">
+                <button class="btn-ghost" onclick="openIpDetail('list')">
+                  ← 返回 IP 列表
+                </button>
+              </div>
+
+              <div class="ip-detail-body">
+                <!-- 大图轮播区域 -->
+                <div class="ip-detail-hero">
+                  <button class="ip-gallery-nav" onclick="changeIpImage('legacy', -1)">‹</button>
+                  <div class="ip-gallery-frame">
+                    <!-- 这里的图片文件名稍后说明 -->
+                    <img id="ip-gallery-legacy"
+                         src="ip-legacy-1.jpg"
+                         alt="《脸谱传说》IP 企划视觉展示">
+                  </div>
+                  <button class="ip-gallery-nav" onclick="changeIpImage('legacy', 1)">›</button>
+                </div>
+
+                <!-- 文案 + 链接按钮 -->
+                <div class="ip-detail-text">
+                  <h3>《脸谱传说》 · Legacy Of Masks</h3>
+                  <p class="ip-detail-sub">
+                    Original Tokusatsu IP · Short Film / Concept · 2025
+                  </p>
+
+                  <p>
+                    《脸谱传说》将中华戏曲脸谱文化与东方特摄相融，
+                    在传统符号与现代影像语言之间寻找平衡。
+                    项目以少年主角的成长为主线，构建一套可扩展的英雄与反派体系，
+                    适配短片、系列剧、长片电影及主题活动等多种载体。
+                  </p>
+
+                  <p>
+                    从世界观设计、角色体系、面具与形象设定，到关键场景与动作设计，
+                    项目整体指向「视觉奇观 + 文化传承 + 青年向情绪」的结合，
+                    为后续的多平台开发和商业合作提供统一的叙事基底。
+                  </p>
+
+                  <div class="ip-detail-subtitle">《脸谱传说》商业企划书 · Investment Deck</div>
+                  <p>
+                    面向 IP 合作方与潜在投资方的系统企划文档，用于支持中长期运营与开发。
+                    内容包括世界观及故事架构梳理、角色逻辑与面具体系、
+                    市场定位与目标人群、阶段性开发路径以及衍生方向设想等。
+                  </p>
+
+                  <div class="ip-detail-actions">
+                    <!-- TODO：把 href 换成你真实的企划书展示链接 -->
+                    <a class="btn-primary"
+                       href="https://example.com/legacy-of-masks-deck"
+                       target="_blank"
+                       rel="noreferrer">
+                      查看企划书链接 View Deck
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
@@ -799,19 +1542,100 @@
   </div>
 
   <script>
+    // 切换 Home / Video / IP / About
     function showScreen(id) {
+      // 1）切换屏幕
       document.querySelectorAll('.screen').forEach(function (el) {
         el.classList.remove('active');
       });
-      document.getElementById('screen-' + id).classList.add('active');
+      var screen = document.getElementById('screen-' + id);
+      if (screen) {
+        screen.classList.add('active');
+      }
 
+      // 2）切换导航高亮
       document.querySelectorAll('.nav-link').forEach(function (el) {
         el.classList.remove('active');
       });
       var current = document.querySelector('.nav-link[data-target="' + id + '"]');
-      if (current) current.classList.add('active');
+      if (current) {
+        current.classList.add('active');
+      }
+
+      // 3）每次切换页面时滚到最上方，避免「上面空一个大块」
+      window.scrollTo(0, 0);
     }
 
+    // Video：按类型筛选（TVC / 宣传片 / 电影短片）
+    function filterVideo(type) {
+      // 高亮当前分类按钮
+      document.querySelectorAll('.pill-tab').forEach(function (tab) {
+        if (tab.dataset.filter === type) {
+          tab.classList.add('pill-tab-active');
+        } else {
+          tab.classList.remove('pill-tab-active');
+        }
+      });
+
+      // 只显示对应类型的区块
+      document.querySelectorAll('.video-cat').forEach(function (section) {
+        if (section.dataset.type === type) {
+          section.style.display = '';
+        } else {
+          section.style.display = 'none';
+        }
+      });
+    }
+
+    // ===== IP 视图切换：列表 / 具体 IP（用 style.display 控制） =====
+    function openIpDetail(key) {
+      var list = document.getElementById('ip-view-list');
+      var legacy = document.getElementById('ip-view-legacy');
+
+      if (!list || !legacy) return;
+
+      if (key === 'legacy') {
+        // 只显示详情视图
+        list.style.display = 'none';
+        legacy.style.display = 'block';
+      } else {
+        // 默认回到列表视图
+        list.style.display = 'block';
+        legacy.style.display = 'none';
+      }
+    }
+
+    // ===== IP 大图轮播（目前只配置《脸谱传说》） =====
+    const IP_GALLERIES = {
+      // 如果只有一张图，也可以只写一张
+      legacy: ['ip-legacy-1.jpg', 'ip-legacy-2.jpg', 'ip-legacy-3.jpg']
+    };
+
+    var currentIpIndex = { legacy: 0 };
+
+    function changeIpImage(key, dir) {
+      const images = IP_GALLERIES[key];
+      if (!images || !images.length) return;
+
+      var idx = currentIpIndex[key] || 0;
+      idx = (idx + dir + images.length) % images.length;
+      currentIpIndex[key] = idx;
+
+      var imgEl = document.getElementById('ip-gallery-' + key);
+      if (imgEl) {
+        imgEl.src = images[idx];
+      }
+    }
+
+    // ========== 初始化 ==========
+    // 1）默认 Video 显示 TVC
+    filterVideo('tvc');
+
+    // 2）IP 默认显示列表视图（卡片），并初始化轮播首张图
+    openIpDetail('list');
+    changeIpImage('legacy', 0);
+
+    // 3）Footer 年份
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
