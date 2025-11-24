@@ -5,7 +5,6 @@
   <title>聂瑞麟 Rico | Film & IP Works</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="聂瑞麟 Rico - 导演、编剧、内容创意总监。用故事讲述情感，让内容带动营销。代表作品包含罗技、强生安视优TVC以及原创IP《脸谱传说》。">
-
   <style>
     :root {
       --bg: #05010a;
@@ -131,11 +130,17 @@
 
     /* 多屏容器 */
 
-        /* 多屏容器：只负责“占位”和给导航留空间，不再画一个大方块 */
     .screens {
       flex: 1;
       margin-top: 70px; /* 给固定导航留空间 */
-      padding: 0;
+      border-radius: 22px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: radial-gradient(circle at 0% 0%, rgba(229, 9, 20, 0.22), transparent 50%),
+                  radial-gradient(circle at 100% 0%, rgba(248, 250, 252, 0.05), transparent 60%),
+                  linear-gradient(to bottom, #020617, #02010a);
+      box-shadow: var(--shadow-soft);
+      padding: 0; /* 首页希望是全宽全高，这里不加内边距 */
+      overflow: hidden;
     }
 
     .screen { display: none; }
@@ -279,151 +284,13 @@
       gap: 8px;
       font-size: 11px;
     }
-
-   .pill-tab {
-  padding: 4px 9px;
-  border-radius: var(--radius-pill);
-  border: 1px solid rgba(148,163,184,0.7);
-  background: rgba(15,23,42,0.95);
-  color: var(--muted);
-  cursor: pointer;
-}
-
-.pill-tab:hover {
-  background: rgba(15,23,42,1);
-  color: var(--text);
-}
-
-.pill-tab-active {
-  border-color: var(--accent);
-  background: rgba(229,9,20,0.16);
-  color: var(--text);
-}
-
-    .rows {
-      display: grid;
-      gap: 12px;
-      margin-top: 4px;
+    /* ===== IP 列表视图 / 详情视图切换 ===== */
+    .ip-view {
+      display: none;
     }
-
-    .row-title {
-      font-size: 13px;
-      color: #e5e7eb;
-      margin-bottom: 4px;
-    }
-
-    .card-row {
-  display: grid;
-  /* 自动多列布局，能换行，不用横向滑动 */
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-  gap: 14px;
-  padding-bottom: 8px;
-}
-
-    .film-card {
-      background: radial-gradient(circle at 0% 0%, rgba(255,255,255,0.08), transparent 40%),
-                  #020617;
-      border-radius: 14px;
-      border: 1px solid rgba(31,41,55,0.9);
-      overflow: hidden;
-      min-height: 220px;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 14px 36px rgba(0,0,0,0.9);
-      transition: 0.18s;
-    }
-
-    .film-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.95);
-      border-color: rgba(229,9,20,0.9);
-    }
-
-       /* 影片海报：统一 16:9，比原来更简单 */
-
-    .film-poster {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 16 / 9;          /* 关键：固定为 16:9 */
-      border-bottom: 1px solid rgba(15, 23, 42, 0.9);
-      background:
-        radial-gradient(circle at 0% 0%, rgba(229, 9, 20, 0.35), transparent 55%),
-        linear-gradient(135deg, #020617, #020617);  /* 没放图时的渐变底 */
-      overflow: hidden;
-    }
-
-    .film-poster img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;             /* 保持画面铺满，会适当裁切 */
+    .ip-view-active {
       display: block;
     }
-
-    /* 如果你更想“完整显示不裁切”，可以把上面这一行
-       object-fit: cover; 改成 object-fit: contain;
-       不过这样两侧会有黑边 */
-
-    .poster-lianpu {
-      background:
-        linear-gradient(135deg, rgba(229,9,20,0.3), transparent 55%),
-        url("poster-lianpu.jpg") center/cover no-repeat,
-        linear-gradient(135deg, #020617, #020617);
-    }
-
-    .film-body {
-  padding: 8px 9px 9px;
-  font-size: 11px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  flex: 1;              /* 让 body 占满卡片高度 */
-}
-
-    .film-title {
-      font-size: 12px;
-      font-weight: 500;
-    }
-
-    .film-meta { color: var(--muted); }
-    .film-role { color: #fca5a5; }
-
-    .film-footer {
-  margin-top: auto;     /* 把 footer 顶到最底部 */
-  display: flex;
-  justify-content: space-between;
-  gap: 4px;
-  align-items: center;
-}
-
-    .pill {
-      padding: 3px 7px;
-      border-radius: 999px;
-      border: 1px solid rgba(229,9,20,0.8);
-      background: rgba(24,24,27,0.98);
-      color: #fecaca;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      white-space: nowrap;
-    }
-
-    .pill span { font-size: 13px; }
-
-    .pill.muted {
-      border-color: rgba(148,163,184,0.8);
-      color: var(--muted);
-    }
-
-    /* IP 页面 */
-/* ===== IP 列表视图 / 详情视图切换 ===== */
-/* 先不在这里隐藏，交给 JS 控制 */
-.ip-view {
-  /* 可以留空，或者写一些通用间距 */
-}
-
-.ip-view-active {
-  /* 这个 class 不再负责显示/隐藏，仅作为标记使用 */
-}
 
     /* IP 列表卡片布局 */
     .ip-card-row {
@@ -599,6 +466,142 @@
         padding-inline: 18px;
       }
     }
+.pill-tab {
+  padding: 4px 9px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(148,163,184,0.7);
+  background: rgba(15,23,42,0.95);
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.pill-tab:hover {
+  background: rgba(15,23,42,1);
+  color: var(--text);
+}
+
+.pill-tab-active {
+  border-color: var(--accent);
+  background: rgba(229,9,20,0.16);
+  color: var(--text);
+}
+
+    .rows {
+      display: grid;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .row-title {
+      font-size: 13px;
+      color: #e5e7eb;
+      margin-bottom: 4px;
+    }
+
+.card-row {
+  display: grid;
+  /* 自动多列布局，能换行，不用横向滑动 */
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 14px;
+  padding-bottom: 8px;
+}
+
+    .film-card {
+      background: radial-gradient(circle at 0% 0%, rgba(255,255,255,0.08), transparent 40%),
+                  #020617;
+      border-radius: 14px;
+      border: 1px solid rgba(31,41,55,0.9);
+      overflow: hidden;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 14px 36px rgba(0,0,0,0.9);
+      transition: 0.18s;
+    }
+
+    .film-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.95);
+      border-color: rgba(229,9,20,0.9);
+    }
+
+       /* 影片海报：统一 16:9，比原来更简单 */
+
+    .film-poster {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;          /* 关键：固定为 16:9 */
+      border-bottom: 1px solid rgba(15, 23, 42, 0.9);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(229, 9, 20, 0.35), transparent 55%),
+        linear-gradient(135deg, #020617, #020617);  /* 没放图时的渐变底 */
+      overflow: hidden;
+    }
+
+    .film-poster img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;             /* 保持画面铺满，会适当裁切 */
+      display: block;
+    }
+
+    /* 如果你更想“完整显示不裁切”，可以把上面这一行
+       object-fit: cover; 改成 object-fit: contain;
+       不过这样两侧会有黑边 */
+
+    .poster-lianpu {
+      background:
+        linear-gradient(135deg, rgba(229,9,20,0.3), transparent 55%),
+        url("poster-lianpu.jpg") center/cover no-repeat,
+        linear-gradient(135deg, #020617, #020617);
+    }
+
+.film-body {
+  padding: 8px 9px 9px;
+  font-size: 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;              /* 让 body 占满卡片高度 */
+}
+
+    .film-title {
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .film-meta { color: var(--muted); }
+    .film-role { color: #fca5a5; }
+
+.film-footer {
+  margin-top: auto;     /* 把 footer 顶到最底部 */
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  align-items: center;
+}
+
+    .pill {
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(229,9,20,0.8);
+      background: rgba(24,24,27,0.98);
+      color: #fecaca;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    .pill span { font-size: 13px; }
+
+    .pill.muted {
+      border-color: rgba(148,163,184,0.8);
+      color: var(--muted);
+    }
+
+    /* IP 页面 */
+
     .ip-layout {
       display: grid;
       grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.3fr);
@@ -912,7 +915,7 @@
                 </h2>
                 <p class="section-sub">按类型整理：TVC、宣传片、电影短片。</p>
               </div>
-             <div class="pill-tabs">
+<div class="pill-tabs">
   <button class="pill-tab pill-tab-active"
           data-filter="tvc"
           onclick="filterVideo('tvc')">
@@ -934,7 +937,7 @@
             <div class="rows">
 
               <!-- ================= TVC · 品牌广告 ================= -->
-              <div class="video-cat" data-type="tvc">
+              <div>
                 <div class="row-title">TVC · 品牌广告</div>
                 <div class="card-row">
                   <!-- 罗技 -->
@@ -943,7 +946,7 @@
                       <img src="poster-logitech.jpg" alt="罗技 X 铁豆｜罗技灵砚系列键盘 K868 TVC">
                     </div>
                     <div class="film-body">
-                      <div class="film-title">罗技 X 铁豆｜罗技灵砚系列键盘TVC</div>
+                      <div class="film-title">罗技 X 铁豆｜罗技灵砚系列键盘 K868 TVC</div>
                       <div class="film-meta">2025 · 品牌 TVC · Logitech</div>
                       <div class="film-role">角色 Role：监制 Producer</div>
                       <p>
@@ -967,7 +970,7 @@
                     </div>
                     <div class="film-body">
                       <div class="film-title">安视优 X 周芯竹｜原生由我 细看更美</div>
-                      <div class="film-meta">2025 · 品牌 TVC ·  ACUVUE</div>
+                      <div class="film-meta">2025 · 品牌 TVC · Johnson &amp; Johnson ACUVUE</div>
                       <div class="film-role">角色 Role：监制 Producer</div>
                       <p>
                         从男友与闺蜜双重视角出发，对比不同花色美瞳在日常场景中的呈现，
@@ -1170,9 +1173,9 @@
               </div>
 
               <!-- ================= 宣传片 · Promo / Corporate ================= -->
-              <div class="video-cat" data-type="promo">
+              <div>
                 <div class="row-title">宣传片 · Promo / Corporate</div>
-                 <div class="card-row">
+  <div class="card-row">
 
     <!-- 党政宣传片《有我青春正能量》 -->
     <article class="film-card">
@@ -1246,11 +1249,10 @@
     </article>
 
   </div>
-                </div>
               </div>
 
               <!-- ================= 电影短片 · Short Films ================= -->
-              <div class="video-cat" data-type="short">
+              <div>
                 <div class="row-title">电影短片 · Short Films</div>
                 <div class="card-row">
 
@@ -1379,8 +1381,8 @@
           </div>
         </div>
       </section>
-      <!-- ========= IP 屏 ========= -->
-            <!-- ========= IP / Planning 屏 ========= -->
+
+      <!-- ========= IP / Planning 屏 ========= -->
       <section id="screen-ip" class="screen">
         <div class="inner-wrap">
           <div class="section-block">
@@ -1414,7 +1416,111 @@
                     </button>
                   </div>
                 </article>
+    <!-- IP 作品：超减梦之队 -->
+    <article class="film-card">
+      <div class="film-poster">
+        <!-- 换成你实际的海报文件名，比如 poster-chaojian.jpg -->
+        <img src="poster-chaojian.jpg" alt="《超减梦之队》宣传海报">
+      </div>
 
+      <div class="film-body">
+        <div class="film-title">《超减梦之队》</div>
+        <div class="film-meta">服务品牌：巅峰减重 · 抖音减肥真人秀综艺</div>
+
+        <p>
+          此项目为抖音平台首档以减肥为主题的减肥真人秀综艺，
+          相关话题在平台内累计播放量达到 5.3 亿，为品牌打造了高讨论度与强记忆点的减重 IP 资产。
+        </p>
+
+        <div class="film-footer">
+          <a class="pill"
+             href="https://v.douyin.com/fApModvLbDk/"
+             target="_blank" rel="noreferrer">
+            查看项目视频 View Project
+          </a>
+        </div>
+      </div>
+    </article>
+    <!-- IP 作品：加伍磅诸神之战 -->
+    <article class="film-card">
+      <div class="film-poster">
+        <!-- 换成你实际的海报文件名，例如 poster-jiawubang.jpg -->
+        <img src="poster-jiawubang.jpg" alt="《加伍磅诸神之战》宣传海报">
+      </div>
+
+      <div class="film-body">
+        <div class="film-title">《加伍磅诸神之战》</div>
+        <div class="film-meta">服务品牌：加伍磅 · 健美访谈 IP 企划</div>
+
+        <p>
+          加伍磅健身是国内健身行业新兴头部品牌，业务覆盖 MCN IP 孵化、
+          连锁健身房运营及课程研发，自 2019 年起已开设 7 家门店。
+          「加伍磅诸神之战」为全网首次四个级别奥赛健美选手同框的访谈节目，
+          #诸神之战 话题全网播放量超 500 万，为品牌打造高辨识度的健美竞技 IP。
+        </p>
+
+        <div class="film-footer">
+          <a class="pill"
+             href="https://v.douyin.com/dgzrtR3wVLE/"
+             target="_blank" rel="noreferrer">
+            查看项目视频 View Project
+          </a>
+        </div>
+      </div>
+    </article>
+    <!-- IP 作品：《铠甲勇士铠传》 -->
+    <article class="film-card">
+      <div class="film-poster">
+        <!-- 换成你实际的海报文件名，例如 poster-kaizhuan.jpg -->
+        <img src="poster-kaizhuan.jpg" alt="《铠甲勇士铠传》宣传海报">
+      </div>
+
+      <div class="film-body">
+        <div class="film-title">《铠甲勇士铠传》</div>
+        <div class="film-meta">铠甲勇士系列回顾篇 · 第五部剧集</div>
+
+        <p>
+          《铠甲勇士铠传》是铠甲勇士系列前四部电视剧和前三部电影的回忆篇，
+          也是《铠甲勇士猎铠》的先行篇。作为系列第五部作品，它一方面延续既有世界观，
+          一方面承载历代铠甲勇士的记忆与情感，对整个 IP 宇宙起到承前启后的“总集”角色。
+        </p>
+
+        <div class="film-footer">
+          <a class="pill"
+             href="https://v.qq.com/x/cover/q3s6tmb1zk5gwsr/b002500cai1.html?ptag=11975"
+             target="_blank" rel="noreferrer">
+            查看项目视频 View Project
+          </a>
+        </div>
+      </div>
+    </article>
+    <!-- IP 作品：《威比斯达·莱昂与雷诺》 -->
+    <article class="film-card">
+      <div class="film-poster">
+        <!-- 换成你实际的海报文件名，例如 poster-weibisida.jpg -->
+        <img src="poster-weibisida.jpg" alt="《威比斯达·莱昂与雷诺》宣传海报">
+      </div>
+
+      <div class="film-body">
+        <div class="film-title">《威比斯达·莱昂与雷诺》</div>
+        <div class="film-meta">2017 · 少儿特摄剧 · 战斗冒险 / 魔幻科幻</div>
+        <div class="film-role">角色 Role：编剧、执行导演</div>
+
+        <p>
+          《威比斯达·莱昂与雷诺》是一部少儿特摄作品，于 2017 年在腾讯视频首播，
+          全剧共 26 集，属于战斗冒险与魔幻科幻题材。该剧通过幽默风趣的叙事方式，
+          塑造了地球青年正直、勇敢、善良的形象，生动展现了团结友爱、互帮互助等优秀品质。
+        </p>
+
+        <div class="film-footer">
+          <a class="pill"
+             href="https://v.qq.com/x/cover/iaqawxrrq63v8f0/k0024d2q7n7.html"
+             target="_blank" rel="noreferrer">
+            查看项目视频 View Project
+          </a>
+        </div>
+      </div>
+    </article>
                 <!-- 以后如果有第二个 IP，就在这里再加一个 ip-card 卡片 -->
 
               </div>
@@ -1542,31 +1648,18 @@
   </div>
 
   <script>
-    // 切换 Home / Video / IP / About
     function showScreen(id) {
-      // 1）切换屏幕
       document.querySelectorAll('.screen').forEach(function (el) {
         el.classList.remove('active');
       });
-      var screen = document.getElementById('screen-' + id);
-      if (screen) {
-        screen.classList.add('active');
-      }
+      document.getElementById('screen-' + id).classList.add('active');
 
-      // 2）切换导航高亮
       document.querySelectorAll('.nav-link').forEach(function (el) {
         el.classList.remove('active');
       });
       var current = document.querySelector('.nav-link[data-target="' + id + '"]');
-      if (current) {
-        current.classList.add('active');
-      }
-
-      // 3）每次切换页面时滚到最上方，避免「上面空一个大块」
-      window.scrollTo(0, 0);
+      if (current) current.classList.add('active');
     }
-
-    // Video：按类型筛选（TVC / 宣传片 / 电影短片）
     function filterVideo(type) {
       // 高亮当前分类按钮
       document.querySelectorAll('.pill-tab').forEach(function (tab) {
@@ -1587,27 +1680,25 @@
       });
     }
 
-    // ===== IP 视图切换：列表 / 具体 IP（用 style.display 控制） =====
+    // 页面加载时，默认显示 TVC
+    filterVideo('tvc');
+    // ===== IP 视图切换：列表 / 具体 IP =====
     function openIpDetail(key) {
-      var list = document.getElementById('ip-view-list');
-      var legacy = document.getElementById('ip-view-legacy');
+      // 先隐藏所有 IP 视图
+      document.querySelectorAll('#screen-ip .ip-view').forEach(function (view) {
+        view.classList.remove('ip-view-active');
+      });
 
-      if (!list || !legacy) return;
-
-      if (key === 'legacy') {
-        // 只显示详情视图
-        list.style.display = 'none';
-        legacy.style.display = 'block';
-      } else {
-        // 默认回到列表视图
-        list.style.display = 'block';
-        legacy.style.display = 'none';
+      if (key === 'list') {
+        document.getElementById('ip-view-list').classList.add('ip-view-active');
+      } else if (key === 'legacy') {
+        document.getElementById('ip-view-legacy').classList.add('ip-view-active');
       }
+      // 如果以后有更多 IP，可以在这里继续 else if
     }
 
-    // ===== IP 大图轮播（目前只配置《脸谱传说》） =====
+    // ===== IP 大图轮播（目前只配脸谱传说） =====
     const IP_GALLERIES = {
-      // 如果只有一张图，也可以只写一张
       legacy: ['ip-legacy-1.jpg', 'ip-legacy-2.jpg', 'ip-legacy-3.jpg']
     };
 
@@ -1627,15 +1718,8 @@
       }
     }
 
-    // ========== 初始化 ==========
-    // 1）默认 Video 显示 TVC
-    filterVideo('tvc');
-
-    // 2）IP 默认显示列表视图（卡片），并初始化轮播首张图
-    openIpDetail('list');
+    // 初始化脸谱传说轮播的首张图
     changeIpImage('legacy', 0);
-
-    // 3）Footer 年份
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
